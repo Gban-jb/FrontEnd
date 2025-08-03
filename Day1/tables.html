@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Table Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        caption {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            padding: 15px;
+            background-color: #3498db;
+            color: white;
+            margin-bottom: 0;
+        }
+        
+        thead {
+            background-color: #e74c3c;
+        }
+        
+        th {
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: bold;
+            color: white;
+            border-bottom: 2px solid #c0392b;
+        }
+        
+        tbody {
+            background-color: #ecf0f1;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #bdc3c7;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #d5dbdb;
+        }
+        
+        .code-labels {
+            max-width: 600px;
+            margin: 20px auto;
+            font-family: monospace;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        .label {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 HTML Table Elements Example</h1>
+    
+    <div class="code-labels">
+        <strong>Elements used in this table:</strong><br>
+        <span class="label">&lt;table&gt;</span> - Main container
+        <span class="label">&lt;caption&gt;</span> - Table title
+        <span class="label">&lt;thead&gt;</span> - Header section
+        <span class="label">&lt;tbody&gt;</span> - Body section
+        <span class="label">&lt;tr&gt;</span> - Table rows
+        <span class="label">&lt;th&gt;</span> - Header cells
+        <span class="label">&lt;td&gt;</span> - Data cells
+    </div>
+    
+    <table>
+        <caption>🧸 My Favorite Toys Collection</caption>
+        
+        <thead>
+            <tr>
+                <th>Toy Name</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Fun Level</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr>
+                <td>Teddy Bear</td>
+                <td>Brown</td>
+                <td>Medium</td>
+                <td>⭐⭐⭐⭐⭐</td>
+            </tr>
+            <tr>
+                <td>LEGO Castle</td>
+                <td>Multi-color</td>
+                <td>Large</td>
+                <td>⭐⭐⭐⭐⭐</td>
+            </tr>
+            <tr>
+                <td>Rubber Duck</td>
+                <td>Yellow</td>
+                <td>Small</td>
+                <td>⭐⭐⭐⭐</td>
+            </tr>
+            <tr>
+                <td>Toy Car</td>
+                <td>Red</td>
+                <td>Small</td>
+                <td>⭐⭐⭐⭐</td>
+            </tr>
+            <tr>
+                <td>Doll House</td>
+                <td>Pink</td>
+                <td>Large</td>
+                <td>⭐⭐⭐⭐⭐</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div style="max-width: 600px; margin: 20px auto; padding: 15px; background-color: #fff3cd; border-radius: 5px; border-left: 4px solid #ffc107;">
+        <h3>🎯 What's happening here:</h3>
+        <ul>
+            <li><strong>&lt;table&gt;</strong> wraps everything like a big box</li>
+            <li><strong>&lt;caption&gt;</strong> gives our table a fun title</li>
+            <li><strong>&lt;thead&gt;</strong> contains the header row (the red section)</li>
+            <li><strong>&lt;tbody&gt;</strong> contains all the toy data (the gray section)</li>
+            <li><strong>&lt;tr&gt;</strong> creates each horizontal row</li>
+            <li><strong>&lt;th&gt;</strong> creates the bold header cells</li>
+            <li><strong>&lt;td&gt;</strong> contains the actual toy information</li>
+        </ul>
+    </div>
+</body>
+</html>
