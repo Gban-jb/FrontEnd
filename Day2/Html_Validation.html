@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🕵️ HTML Detective Lab - Find & Fix Bugs!</title>
+    <meta name="description" content="Learn HTML validation, debugging, and best practices through interactive detective work!">
+    
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #4a5568;
+            text-align: center;
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            font-size: 1.3em;
+            margin-bottom: 30px;
+        }
+        
+        .detective-section {
+            margin: 30px 0;
+            padding: 25px;
+            border-radius: 15px;
+            border: 3px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .validation-section {
+            background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+            border-color: #38b2ac;
+        }
+        
+        .debugging-section {
+            background: linear-gradient(135deg, #fef5e7 0%, #fed7aa 100%);
+            border-color: #f6ad55;
+        }
+        
+        .best-practices-section {
+            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+            border-color: #48bb78;
+        }
+        
+        .bug-hunt-section {
+            background: linear-gradient(135deg, #fff0f0 0%, #fed7d7 100%);
+            border-color: #f56565;
+        }
+        
+        .section-icon {
+            font-size: 3em;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            opacity: 0.3;
+        }
+        
+        h2 {
+            color: #2d3748;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+        
+        .code-box {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            font-size: 14px;
+            overflow-x: auto;
+            border-left: 4px solid #4299e1;
+            position: relative;
+        }
+        
+        .good-code {
+            border-left-color: #48bb78;
+        }
+        
+        .bad-code {
+            border-left-color: #f56565;
+        }
+        
+        .code-label {
+            position: absolute;
+            top: -10px;
+            right: 15px;
+            background: #4299e1;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .good-code .code-label {
+            background: #48bb78;
+        }
+        
+        .bad-code .code-label {
+            background: #f56565;
+        }
+        
+        .demo-button {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(66, 153, 225, 0.3);
+        }
+        
+        .demo-button:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(66, 153, 225, 0.4);
+        }
+        
+        .demo-button:focus {
+            outline: 3px solid #ffa500;
+            outline-offset: 2px;
+        }
+        
+        .bug-button {
+            background: #f56565;
+        }
+        
+        .bug-button:hover {
+            background: #e53e3e;
+        }
+        
+        .fix-button {
+            background: #48bb78;
+        }
+        
+        .fix-button:hover {
+            background: #38a169;
+        }
+        
+        .interactive-demo {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #4299e1;
+        }
+        
+        .bug-hunt-item {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .bug-found {
+            border-color: #f56565;
+            background: #fff5f5;
+        }
+        
+        .bug-fixed {
+            border-color: #48bb78;
+            background: #f0fff4;
+        }
+        
+        .bug-number {
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: #4299e1;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .validation-tool {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .validation-result {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .validation-success {
+            background: #f0fff4;
+            border: 2px solid #48bb78;
+            color: #2f855a;
+        }
+        
+        .validation-error {
+            background: #fff5f5;
+            border: 2px solid #f56565;
+            color: #c53030;
+        }
+        
+        .fun-fact {
+            background: #e6fffa;
+            border: 2px solid #38b2ac;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .fun-fact::before {
+            content: "💡";
+            font-size: 1.5em;
+            position: absolute;
+            top: -5px;
+            left: 15px;
+            background: white;
+            padding: 0 5px;
+        }
+        
+        .checklist {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+        
+        .checklist-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #4299e1;
+            border-radius: 4px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .checklist-checkbox.checked {
+            background: #4299e1;
+            color: white;
+        }
+        
+        .score-display {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+        
+        .detective-badge {
+            display: inline-block;
+            background: #ffd700;
+            color: #2d3748;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin: 10px 5px;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+        }
+        
+        .tip-box {
+            background: #fffbeb;
+            border: 2px solid #f6ad55;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .tip-box::before {
+            content: "💡";
+            font-size: 1.5em;
+            position: absolute;
+            top: -5px;
+            left: 15px;
+            background: white;
+            padding: 0 5px;
+        }
+        
+        .hidden-content {
+            display: none;
+            margin-top: 15px;
+        }
+        
+        .bug-highlight {
+            background: #fed7d7;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .fix-highlight {
+            background: #c6f6d5;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🕵️ HTML Detective Lab</h1>
+            <p class="subtitle">Become a code detective and learn to find bugs, validate HTML, and follow best practices!</p>
+        </header>
+        
+        <main>
+            <!-- HTML Validation Section -->
+            <section class="detective-section validation-section">
+                <div class="section-icon">✅</div>
+                <h2>✅ HTML Validation - Making Sure Your Code is Perfect!</h2>
+                
+                <p>HTML validation is like having a <span style="background: #ffd700; padding: 2px 5px; border-radius: 3px; font-weight: bold;">super smart teacher</span> check your code to make sure it follows all the rules!</p>
+                
+                <div class="interactive-demo">
+                    <h3>🔍 What is HTML Validation?</h3>
+                    <p>It's like spell-check for your HTML code! It finds:</p>
+                    <ul>
+                        <li>🚫 Missing closing tags</li>
+                        <li>🚫 Typos in tag names</li>
+                        <li>🚫 Attributes in the wrong place</li>
+                        <li>🚫 Tags that don't belong together</li>
+                    </ul>
+                </div>
+                
+                <div class="validation-tool">
+                    <h3>🛠️ Try Our Mini HTML Validator!</h3>
+                    <textarea id="html-input" placeholder="Paste your HTML code here..." style="width: 100%; height: 120px; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 14px;"></textarea>
+                    <button class="demo-button" onclick="validateHTML()">🔍 Validate My HTML!</button>
+                    <div id="validation-results"></div>
+                </div>
+                
+                <div class="fun-fact">
+                    Professional web developers use real HTML validators like the W3C Markup Validator (validator.w3.org) to check their websites!
+                </div>
+            </section>
+            
+            <!-- Debugging Section -->
+            <section class="detective-section debugging-section">
+                <div class="section-icon">🐛</div>
+                <h2>🐛 HTML Debugging - Becoming a Bug Detective!</h2>
+                
+                <p>Debugging is like being a <span style="background: #ffd700; padding: 2px 5px; border-radius: 3px; font-weight: bold;">detective solving mysteries</span> in your code. Let's learn the most common HTML bugs and how to catch them!</p>
+                
+                <div class="interactive-demo">
+                    <h3>🕵️ Common HTML Bugs & How to Spot Them:</h3>
+                    
+                    <div class="bug-hunt-item">
+                        <div class="bug-number">1</div>
+                        <h4>❌ The Missing Closing Tag Mystery</h4>
+                        <div class="code-box bad-code">
+                            <div class="code-label">❌ BUGGY</div>
+&lt;div&gt;
+    &lt;h1&gt;Welcome to my site&lt;/h1&gt;
+    &lt;p&gt;This is a paragraph
+    &lt;p&gt;This is another paragraph&lt;/p&gt;
+&lt;/div&gt;
+                        </div>
+                        <button class="demo-button bug-button" onclick="showBugExplanation(1)">🔍 Find the Bug!</button>
+                        <div id="bug-explanation-1" class="hidden-content">
+                            <p><strong>🕵️ The Bug:</strong> The first paragraph tag <span class="bug-highlight">&lt;p&gt;</span> is missing its closing tag <span class="bug-highlight">&lt;/p&gt;</span>!</p>
+                            <div class="code-box good-code">
+                                <div class="code-label">✅ FIXED</div>
+&lt;div&gt;
+    &lt;h1&gt;Welcome to my site&lt;/h1&gt;
+    &lt;p&gt;This is a paragraph<span class="fix-highlight">&lt;/p&gt;</span>
+    &lt;p&gt;This is another paragraph&lt;/p&gt;
+&lt;/div&gt;
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bug-hunt-item">
+                        <div class="bug-number">2</div>
+                        <h4>❌ The Nested Tags Nightmare</h4>
+                        <div class="code-box bad-code">
+                            <div class="code-label">❌ BUGGY</div>
+&lt;p&gt;This text is &lt;strong&gt;bold and &lt;em&gt;italic&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+                        </div>
+                        <button class="demo-button bug-button" onclick="showBugExplanation(2)">🔍 Find the Bug!</button>
+                        <div id="bug-explanation-2" class="hidden-content">
+                            <p><strong>🕵️ The Bug:</strong> The tags are <span class="bug-highlight">overlapping instead of nesting properly</span>! Think of HTML tags like Russian dolls - they must fit inside each other perfectly.</p>
+                            <div class="code-box good-code">
+                                <div class="code-label">✅ FIXED</div>
+&lt;p&gt;This text is &lt;strong&gt;bold and <span class="fix-highlight">&lt;em&mc italic&lt;/em&gt;&lt;/strong&gt;</span>&lt;/p&gt;
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bug-hunt-item">
+                        <div class="bug-number">3</div>
+                        <h4>❌ The Attribute Accident</h4>
+                        <div class="code-box bad-code">
+                            <div class="code-label">❌ BUGGY</div>
+&lt;img src=my-photo.jpg alt=A photo of me&gt;
+&lt;a href=https://example.com&gt;Click here&lt;/a&gt;
+                        </div>
+                        <button class="demo-button bug-button" onclick="showBugExplanation(3)">🔍 Find the Bug!</button>
+                        <div id="bug-explanation-3" class="hidden-content">
+                            <p><strong>🕵️ The Bug:</strong> <span class="bug-highlight">Missing quotes around attribute values</span>! Attributes should always be wrapped in quotes.</p>
+                            <div class="code-box good-code">
+                                <div class="code-label">✅ FIXED</div>
+&lt;img src=<span class="fix-highlight">"my-photo.jpg"</span> alt=<span class="fix-highlight">"A photo of me"</span>&gt;
+&lt;a href=<span class="fix-highlight">"https://example.com"</span>&gt;Click here&lt;/a&gt;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <strong>🔧 Detective Tools:</strong> Use your browser's Developer Tools (press F12) to inspect HTML and find errors! It's like having X-ray vision for websites.
+                </div>
+            </section>
+            
+            <!-- Best Practices Section -->
+            <section class="detective-section best-practices-section">
+                <div class="section-icon">⭐</div>
+                <h2>⭐ HTML Best Practices - The Secret Rules of Great Code!</h2>
+                
+                <p>Best practices are like <span style="background: #ffd700; padding: 2px 5px; border-radius: 3px; font-weight: bold;">secret ninja techniques</span> that make your HTML code awesome, fast, and easy to understand!</p>
+                
+                <div class="checklist">
+                    <h3>🏆 The HTML Best Practices Checklist</h3>
+                    
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checklist-checkbox"></div>
+                        <div>
+                            <strong>Always use proper DOCTYPE</strong><br>
+                            <small>Start every HTML page with &lt;!DOCTYPE html&gt;</small>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checklist-checkbox"></div>
+                        <div>
+                            <strong>Use semantic HTML tags</strong><br>
+                            <small>&lt;header&gt;, &lt;main&gt;, &lt;section&gt;, &lt;article&gt; instead of just &lt;div&gt;</small>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checklist-checkbox"></div>
+                        <div>
+                            <strong>Always close your tags</strong><br>
+                            <small>Every &lt;p&gt; needs a &lt;/p&gt;, every &lt;div&gt; needs a &lt;/div&gt;</small>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checklist-checkbox"></div>
+                        <div>
+                            <strong>Use lowercase for tags and attributes</strong><br>
+                            <small>&lt;div class="container"&gt; not &lt;DIV CLASS="Container"&gt;</small>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checklist-checkbox"></div>
+                        <div>
+                            <strong>Indent your code properly</strong><br>
+                            <small>Makes code easy to read like a well-organized book!</small>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checklist-checkbox"></div>
+                        <div>
+                            <strong>Add alt text to images</strong><br>
+                            <small>&lt;img src="cat.jpg" alt="A fluffy orange cat"&gt;</small>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checklist-checkbox"></div>
+                        <div>
+                            <strong>Use meaningful IDs and classes</strong><br>
+                            <small>id="navigation" not id="thing1"</small>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <div class="checklist-checkbox"></div>
+                        <div>
+                            <strong>Keep your code organized</strong><br>
+                            <small>Group related elements together</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="score-display" id="best-practices-score">
+                    🏆 Best Practices Score: 0/8
+                    <div id="detective-badge" style="margin-top: 10px;"></div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h3>📝 Good vs Bad HTML Examples</h3>
+                    
+                    <h4>❌ Bad HTML (Don't do this!):</h4>
+                    <div class="code-box bad-code">
+                        <div class="code-label">❌ BAD</div>
+&lt;HTML&gt;
+&lt;HEAD&gt;&lt;TITLE&gt;my website
+&lt;BODY&gt;
+&lt;DIV class=header&gt;
+&lt;H1&gt;Welcome
+&lt;DIV class=content&gt;
+&lt;P&gt;This is my website
+&lt;IMG src=photo.jpg&gt;
+                    </div>
+                    
+                    <h4>✅ Good HTML (Do this!):</h4>
+                    <div class="code-box good-code">
+                        <div class="code-label">✅ GOOD</div>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My Awesome Website&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header class="site-header"&gt;
+        &lt;h1&gt;Welcome to My Website&lt;/h1&gt;
+    &lt;/header&gt;
+    
+    &lt;main class="main-content"&gt;
+        &lt;section&gt;
+            &lt;p&gt;This is my amazing website where I share cool stuff!&lt;/p&gt;
+            &lt;img src="photo.jpg" alt="A photo of me smiling"&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Interactive Bug Hunt Game -->
+            <section class="detective-section bug-hunt-section">
+                <div class="section-icon">🎮</div>
+                <h2>🎮 Bug Hunt Challenge - Test Your Detective Skills!</h2>
+                
+                <p>Time to put your detective skills to the test! Can you find all the bugs in this HTML code?</p>
+                
+                <div class="interactive-demo">
+                    <h3>🕵️ Mission: Find 5 bugs in this code!</h3>
+                    <div class="code-box bad-code">
+                        <div class="code-label">🐛 BUGGY CODE</div>
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My Gaming Website
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Welcome to &lt;strong&gt;Epic &lt;em&gt;Gaming&lt;/strong&gt;&lt;/em&gt; Site&lt;/h1&gt;
+    &lt;/header&gt;
+    
+    &lt;main&gt;
+        &lt;section&gt;
+            &lt;h2&gt;Latest Games&lt;/h2&gt;
+            &lt;p&gt;Check out these awesome games:
+            &lt;ul&gt;
+                &lt;li&gt;Space Adventure&lt;/li&gt;
+                &lt;li&gt;Dragon Quest
+                &lt;li&gt;Robot Wars&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/section&gt;
+        
+        &lt;section&gt;
+            &lt;h2&gt;Screenshots&lt;/h2&gt;
+            &lt;img src=game1.jpg&gt;
+            &lt;img src="game2.jpg" alt="Dragon fighting scene"&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </div>
+                    
+                    <div style="margin: 20px 0;">
+                        <button class="demo-button" onclick="revealBug(1)">🔍 Show Bug #1</button>
+                        <button class="demo-button" onclick="revealBug(2)">🔍 Show Bug #2</button>
+                        <button class="demo-button" onclick="revealBug(3)">🔍 Show Bug #3</button>
+                        <button class="demo-button" onclick="revealBug(4)">🔍 Show Bug #4</button>
+                        <button class="demo-button" onclick="revealBug(5)">🔍 Show Bug #5</button>
+                        <button class="demo-button fix-button" onclick="showAllFixes()">✅ Show All Fixes!</button>
+                    </div>
+                    
+                    <div id="bug-reveals"></div>
+                    <div id="bug-hunt-score" class="score-display" style="display: none;">
+                        🎯 Bugs Found: <span id="bugs-found">0</span>/5
+                        <div id="detective-rank"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Tools & Resources Section -->
+            <section class="detective-section" style="background: linear-gradient(135deg, #e6f3ff 0%, #bee3f8 100%); border-color: #4299e1;">
+                <div class="section-icon">🛠️</div>
+                <h2>🛠️ Detective Tools & Resources</h2>
+                
+                <div class="interactive-demo">
+                    <h3>🔧 Essential HTML Detective Tools:</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                        <div style="background: white; padding: 20px; border-radius: 10px; border-left: 4px solid #4299e1;">
+                            <h4>🌐 W3C Markup Validator</h4>
+                            <p>The official HTML validator - like having the HTML rulebook check your code!</p>
+                            <p><strong>URL:</strong> validator.w3.org</p>
+                        </div>
+                        
+                        <div style="background: white; padding: 20px; border-radius: 10px; border-left: 4px solid #48bb78;">
+                            <h4>🔍 Browser DevTools</h4>
+                            <p>Built into your browser! Press F12 to open and inspect any webpage.</p>
+                            <p><strong>Shortcut:</strong> F12 or Ctrl+Shift+I</p>
+                        </div>
+                        
+                        <div style="background: white; padding: 20px; border-radius: 10px; border-left: 4px solid #f6ad55;">
+                            <h4>💻 Code Editors</h4>
+                            <p>VS Code, Sublime Text, and Atom can highlight HTML errors as you type!</p>
+                            <p><strong>Tip:</strong> They're like spell-check for code!</p>
+                        </div>
+                        
+                        <div style="background: white; padding: 20px; border-radius: 10px; border-left: 4px solid #9f7aea;">
+                            <h4>🎯 HTML Lint Tools</h4>
+                            <p>Online tools that check your HTML for common mistakes and best practices.</p>
+                            <p><strong>Example:</strong> HTMLHint, HTML5 Validator</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tip-box">
+                    <strong>🎓 Pro Detective Tip:</strong> Always validate your HTML before showing it to others. It's like proofreading an essay before turning it in!
+                </div>
+            </section>
+        </main>
+        
+        <footer style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid #e2e8f0;">
+            <p>🌟 Congratulations, HTML Detective! You now know how to find bugs, validate code, and follow best practices! 🌟</p>
+            <p style="font-size: 0.9em; color: #718096;">Remember: Good HTML is like a well-built house - strong foundation, organized structure, and attention to detail!</p>
+        </footer>
+    </div>
+    
+    <!-- Success Message -->
+    <div id="success-message" style="position: fixed; top: 20px; right: 20px; background: #38a169; color: white; padding: 15px 20px; border-radius: 10px; display: none; z-index: 1000; box-shadow: 0 4px 15px rgba(56, 161, 105, 0.3);"></div>
+    
+    <script>
+        let checkedItems = 0;
+        let bugsFound = 0;
+        const totalBugs = 5;
+        
+        function showMessage(text, type = 'success') {
+            const messageDiv = document.getElementById('success-message');
+            messageDiv.textContent = text;
+            messageDiv.style.background = type === 'success' ? '#38a169' : '#f56565';
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 3000);
+        }
+        
+        function validateHTML() {
+            const htmlInput = document.getElementById('html-input').value.trim();
+            const resultsDiv = document.getElementById('validation-results');
+            
+            if (!htmlInput) {
+                resultsDiv.innerHTML = '<div class="validation-error">⚠️ Please enter some HTML code to validate!</div>';
+                return;
+            }
+            
+            // Simple validation checks
+            const errors = [];
+            const warnings = [];
+            
+            // Check for DOCTYPE
+            if (!htmlInput.toLowerCase().includes('<!doctype html>')) {
+                errors.push('Missing DOCTYPE declaration');
+            }
+            
+            // Check for basic structure
+            if (!htmlInput.toLowerCase().includes('<html')) {
+                errors.push('Missing <html> tag');
+            }
+            
+            if (!htmlInput.toLowerCase().includes('<head>')) {
+                errors.push('Missing <head> section');
+            }
+            
+            if (!htmlInput.toLowerCase().includes('<body>')) {
+                errors.push('Missing <body> section');
+            }
+            
+            // Check for unclosed tags (simplified)
+            const openTags = htmlInput.match(/<[^\/][^>]*>/g) || [];
+            const closeTags = htmlInput.match(/<\/[^>]*>/g) || [];
+            
+            if (openTags.length !== closeTags.length) {
+                warnings.push('Potential unclosed tags detected');
+            }
+            
+            // Check for missing quotes in attributes
+            if (htmlInput.match(/=\w+\s/)) {
+                errors.push('Missing quotes around attribute values');
+            }
+            
+            let resultHTML = '';
+            
+            if (errors.length === 0 && warnings.length === 0) {
+                resultHTML = '<div class="validation-success">✅ Great! No major issues found in your HTML!</div>';
+                showMessage('🎉 HTML validation passed!');
+            } else {
+                if (errors.length > 0) {
+                    resultHTML += '<div class="validation-error"><strong>❌ Errors found:</strong><ul>';
+                    errors.forEach(error => {
+                        resultHTML += `<li>${error}</li>`;
+                    });
+                    resultHTML += '</ul></div>';
+                }
+                
+                if (warnings.length > 0) {
+                    resultHTML += '<div class="validation-error"><strong>⚠️ Warnings:</strong><ul>';
+                    warnings.forEach(warning => {
+                        resultHTML += `<li>${warning}</li>`;
+                    });
+                    resultHTML += '</ul></div>';
+                }
+                showMessage('🔍 Validation complete - check results!', 'warning');
+            }
+            
+            resultsDiv.innerHTML = resultHTML;
+        }
+        
+        function showBugExplanation(bugNumber) {
+            const explanationDiv = document.getElementById(`bug-explanation-${bugNumber}`);
+            if (explanationDiv.style.display === 'none' || !explanationDiv.style.display) {
+                explanationDiv.style.display = 'block';
+                showMessage(`🕵️ Bug #${bugNumber} revealed!`);
+            } else {
+                explanationDiv.style.display = 'none';
+            }
+        }
+        
+        function toggleCheck(item) {
+            const checkbox = item.querySelector('.checklist-checkbox');
+            const isChecked = checkbox.classList.contains('checked');
+            
+            if (isChecked) {
+                checkbox.classList.remove('checked');
+                checkbox.innerHTML = '';
+                checkedItems--;
+            } else {
+                checkbox.classList.add('checked');
+                checkbox.innerHTML = '✓';
+                checkedItems++;
+                showMessage('✅ Good practice learned!');
+            }
+            
+            updateBestPracticesScore();
+        }
+        
+        function updateBestPracticesScore() {
+            const scoreDiv = document.getElementById('best-practices-score');
+            const badgeDiv = document.getElementById('detective-badge');
+            
+            scoreDiv.innerHTML = `🏆 Best Practices Score: ${checkedItems}/8`;
+            
+            let badgeText = '';
+            let badgeClass = 'detective-badge';
+            
+            if (checkedItems === 0) {
+                badgeText = '';
+            } else if (checkedItems <= 2) {
+                badgeText = '🔍 HTML Apprentice';
+            } else if (checkedItems <= 4) {
+                badgeText = '🕵️ Code Detective';
+            } else if (checkedItems <= 6) {
+                badgeText = '⭐ HTML Expert';
+            } else if (checkedItems === 7) {
+                badgeText = '🏆 Master Validator';
+            } else if (checkedItems === 8) {
+                badgeText = '🌟 HTML Ninja Master!';
+                showMessage('🎉 You achieved HTML Ninja Master status!');
+            }
+            
+            scoreDiv.innerHTML += `<div id="detective-badge" style="margin-top: 10px;">${badgeText}</div>`;
+        }
+        
+        const bugExplanations = {
+            1: "🐛 Bug #1: Missing DOCTYPE declaration at the top!",
+            2: "🐛 Bug #2: Overlapping tags in the h1 - <strong> and <em> are tangled!",
+            3: "🐛 Bug #3: Missing closing </p> tag after 'Check out these awesome games:'",
+            4: "🐛 Bug #4: Missing closing </li> tag for 'Dragon Quest'",
+            5: "🐛 Bug #5: Missing quotes around src attribute in first <img> tag!"
+        };
+        
+        function revealBug(bugNumber) {
+            const revealsDiv = document.getElementById('bug-reveals');
+            const scoreDiv = document.getElementById('bug-hunt-score');
+            
+            if (!document.getElementById(`bug-reveal-${bugNumber}`)) {
+                const bugDiv = document.createElement('div');
+                bugDiv.id = `bug-reveal-${bugNumber}`;
+                bugDiv.className = 'validation-error';
+                bugDiv.innerHTML = bugExplanations[bugNumber];
+                revealsDiv.appendChild(bugDiv);
+                
+                bugsFound++;
+                scoreDiv.style.display = 'block';
+                document.getElementById('bugs-found').textContent = bugsFound;
+                
+                updateDetectiveRank();
+                showMessage(`🔍 Bug #${bugNumber} found!`);
+            }
+        }
+        
+        function updateDetectiveRank() {
+            const rankDiv = document.getElementById('detective-rank');
+            let rank = '';
+            
+            if (bugsFound === 1) {
+                rank = '🔍 Rookie Detective';
+            } else if (bugsFound === 2) {
+                rank = '🕵️ Junior Inspector';
+            } else if (bugsFound === 3) {
+                rank = '⭐ Code Detective';
+            } else if (bugsFound === 4) {
+                rank = '🏆 Senior Investigator';
+            } else if (bugsFound === 5) {
+                rank = '🌟 Master Bug Hunter!';
+                showMessage('🎉 All bugs found! You are a Master Bug Hunter!');
+            }
+            
+            rankDiv.innerHTML = rank;
+        }
+        
+        function showAllFixes() {
+            const revealsDiv = document.getElementById('bug-reveals');
+            revealsDiv.innerHTML = `
+                <div class="validation-success">
+                    <h4>✅ All Fixed! Here's the corrected code:</h4>
+                </div>
+                <div class="code-box good-code">
+                    <div class="code-label">✅ FIXED</div>
+<strong>&lt;!DOCTYPE html&gt;</strong> <!-- Bug #1 Fixed -->
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My Gaming Website&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Welcome to &lt;strong&gt;Epic <strong>&lt;em&gt;Gaming&lt;/em&gt;&lt;/strong&gt;</strong> Site&lt;/h1&gt; <!-- Bug #2 Fixed -->
+    &lt;/header&gt;
+    
+    &lt;main&gt;
+        &lt;section&gt;
+            &lt;h2&gt;Latest Games&lt;/h2&gt;
+            &lt;p&gt;Check out these awesome games:<strong>&lt;/p&gt;</strong> <!-- Bug #3 Fixed -->
+            &lt;ul&gt;
+                &lt;li&gt;Space Adventure&lt;/li&gt;
+                &lt;li&gt;Dragon Quest<strong>&lt;/li&gt;</strong> <!-- Bug #4 Fixed -->
+                &lt;li&gt;Robot Wars&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/section&gt;
+        
+        &lt;section&gt;
+            &lt;h2&gt;Screenshots&lt;/h2&gt;
+            &lt;img src=<strong>"game1.jpg"</strong> alt="Space adventure screenshot"&gt; <!-- Bug #5 Fixed -->
+            &lt;img src="game2.jpg" alt="Dragon fighting scene"&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </div>
+            `;
+            
+            bugsFound = 5;
+            document.getElementById('bug-hunt-score').style.display = 'block';
+            document.getElementById('bugs-found').textContent = bugsFound;
+            updateDetectiveRank();
+        }
+        
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.detective-section');
+            
+            sections.forEach(section => {
+                section.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                    this.style.transition = 'transform 0.3s ease';
+                });
+                
+                section.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Initialize validation input with example
+            const exampleHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Test Page</title>
+</head>
+<body>
+    <h1>Hello World!</h1>
+    <p>This is a test paragraph.</p>
+</body>
+</html>`;
+            
+            document.getElementById('html-input').placeholder = "Try pasting this example code or write your own:\n\n" + exampleHTML;
+        });
+    </script>
+</body>
+</html>
+    

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Accessibility Playground</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #4a5568;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            border-radius: 15px;
+            border: 3px solid #e2e8f0;
+        }
+        
+        .section h2 {
+            color: #2d3748;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .good-example {
+            background: #f0fff4;
+            border-color: #38a169;
+        }
+        
+        .bad-example {
+            background: #fff5f5;
+            border-color: #e53e3e;
+        }
+        
+        .demo-button {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-button:hover {
+            background: #3182ce;
+            transform: scale(1.05);
+        }
+        
+        .demo-button:focus {
+            outline: 3px solid #ffa500;
+            outline-offset: 2px;
+        }
+        
+        .bad-button {
+            background: #e53e3e;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        
+        .bad-button:focus {
+            outline: none;
+        }
+        
+        .form-group {
+            margin: 15px 0;
+        }
+        
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2d3748;
+        }
+        
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        input:focus {
+            outline: 3px solid #ffa500;
+            outline-offset: 2px;
+            border-color: #4299e1;
+        }
+        
+        .hidden-label {
+            position: absolute;
+            left: -9999px;
+        }
+        
+        .navigation {
+            background: #2d3748;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        
+        .nav-item a:hover, .nav-item a:focus {
+            background: #4a5568;
+            outline: 2px solid #ffa500;
+            outline-offset: 2px;
+        }
+        
+        .keyboard-hint {
+            background: #edf2f7;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #4299e1;
+        }
+        
+        .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .screen-reader-text {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+        
+        .skip-link:focus {
+            top: 6px;
+        }
+        
+        .toggle-content {
+            display: none;
+            padding: 15px;
+            background: #f7fafc;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
+        .toggle-content.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <div class="container">
+        <header>
+            <h1>🌟 Web Accessibility Playground 🌟</h1>
+            <p class="subtitle">Making websites that work for everyone!</p>
+        </header>
+        
+        <main id="main-content">
+            <!-- Semantic Structure Section -->
+            <section class="section good-example">
+                <h2>🏗️ Semantic Structure (Like Building Blocks!)</h2>
+                <p>Think of HTML like building with LEGO blocks. Each block has a special purpose!</p>
+                
+                <article>
+                    <h3>📰 This is an Article (like a news story)</h3>
+                    <p>Articles are for complete pieces of content, like a blog post or news story.</p>
+                </article>
+                
+                <aside>
+                    <h3>📝 This is an Aside (like a side note)</h3>
+                    <p>Asides are for extra information that's related but not the main content.</p>
+                </aside>
+                
+                <nav class="navigation" role="navigation" aria-label="Main navigation">
+                    <h3 style="color: white; margin-top: 0;">🧭 Navigation (like a map)</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="#home">Home</a></li>
+                        <li class="nav-item"><a href="#about">About</a></li>
+                        <li class="nav-item"><a href="#games">Games</a></li>
+                        <li class="nav-item"><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </section>
+            
+            <!-- ARIA Labels Section -->
+            <section class="section good-example">
+                <h2>🏷️ ARIA Labels (Like Name Tags for Everything!)</h2>
+                <p>ARIA labels are like putting name tags on things so screen readers know what they are!</p>
+                
+                <div class="form-group">
+                    <label for="good-search">Search for your favorite game:</label>
+                    <input type="text" id="good-search" placeholder="Type game name here">
+                </div>
+                
+                <button class="demo-button" 
+                        aria-label="Add item to favorites list"
+                        onclick="showMessage('✅ Added to favorites!')">
+                    <span class="icon">❤️</span>
+                    <span class="screen-reader-text">Add to favorites</span>
+                </button>
+                
+                <button class="demo-button" 
+                        aria-describedby="save-help"
+                        onclick="showMessage('💾 Game saved!')">
+                    💾 Save Game
+                </button>
+                <div id="save-help" class="keyboard-hint">
+                    This button saves your current game progress
+                </div>
+                
+                <button class="demo-button"
+                        aria-expanded="false"
+                        aria-controls="toggle-demo"
+                        onclick="toggleContent(this)">
+                    🎁 Show/Hide Surprise
+                </button>
+                <div id="toggle-demo" class="toggle-content">
+                    <p>🎉 Surprise! You found the hidden content!</p>
+                </div>
+            </section>
+            
+            <!-- Bad Examples -->
+            <section class="section bad-example">
+                <h2>❌ What NOT to Do (These are broken!)</h2>
+                <p>These examples show what happens when we don't use accessibility features:</p>
+                
+                <div class="form-group">
+                    <input type="text" placeholder="Search (no label - screen readers are confused!)">
+                </div>
+                
+                <button class="bad-button" onclick="showMessage('This button has no focus outline!')">
+                    🔴 Bad Button (no focus outline)
+                </button>
+                
+                <div onclick="showMessage('This looks like a button but isn\'t!')" 
+                     style="display: inline-block; background: #666; color: white; padding: 12px 24px; border-radius: 25px; cursor: pointer; margin: 10px 5px;">
+                    🔴 Fake Button (not keyboard accessible)
+                </div>
+            </section>
+            
+            <!-- Keyboard Navigation Section -->
+            <section class="section good-example">
+                <h2>⌨️ Keyboard Navigation (No Mouse Needed!)</h2>
+                <p>Some people can't use a mouse, so everything should work with just a keyboard!</p>
+                
+                <div class="keyboard-hint">
+                    <strong>🎮 Try these keyboard controls:</strong><br>
+                    • Press <kbd>Tab</kbd> to move forward through buttons and links<br>
+                    • Press <kbd>Shift + Tab</kbd> to move backward<br>
+                    • Press <kbd>Enter</kbd> or <kbd>Space</kbd> to click buttons<br>
+                    • Press <kbd>Enter</kbd> to follow links
+                </div>
+                
+                <button class="demo-button" onclick="showMessage('🎹 You used the keyboard!')">
+                    Try Me With Tab + Enter!
+                </button>
+                
+                <button class="demo-button" onclick="showMessage('⭐ Great job navigating!')">
+                    Or Try This One!
+                </button>
+                
+                <button class="demo-button" onclick="showMessage('🏆 You\'re an accessibility champion!')">
+                    And This One Too!
+                </button>
+            </section>
+            
+            <!-- Interactive Form Example -->
+            <section class="section good-example">
+                <h2>📋 Accessible Form (Everything has a label!)</h2>
+                
+                <form onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <label for="player-name">Your Name:</label>
+                        <input type="text" id="player-name" required 
+                               aria-describedby="name-help">
+                        <div id="name-help" style="font-size: 0.9em; color: #666;">
+                            This will be your player name in games
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="player-email">Email (optional):</label>
+                        <input type="email" id="player-email">
+                    </div>
+                    
+                    <button type="submit" class="demo-button">
+                        🚀 Join the Fun!
+                    </button>
+                </form>
+            </section>
+        </main>
+        
+        <footer style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid #e2e8f0;">
+            <p>🌈 Remember: Good accessibility makes websites better for everyone! 🌈</p>
+        </footer>
+    </div>
+    
+    <!-- Message display area -->
+    <div id="message-area" style="position: fixed; top: 20px; right: 20px; background: #38a169; color: white; padding: 15px; border-radius: 10px; display: none; z-index: 1000;"></div>
+    
+    <script>
+        function showMessage(text) {
+            const messageArea = document.getElementById('message-area');
+            messageArea.textContent = text;
+            messageArea.style.display = 'block';
+            
+            setTimeout(() => {
+                messageArea.style.display = 'none';
+            }, 3000);
+        }
+        
+        function toggleContent(button) {
+            const content = document.getElementById('toggle-demo');
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            
+            if (isExpanded) {
+                content.classList.remove('show');
+                button.setAttribute('aria-expanded', 'false');
+                button.textContent = '🎁 Show Surprise';
+            } else {
+                content.classList.add('show');
+                button.setAttribute('aria-expanded', 'true');
+                button.textContent = '📦 Hide Surprise';
+            }
+        }
+        
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('player-name').value;
+            if (name) {
+                showMessage(`🎉 Welcome to the accessibility club, ${name}!`);
+            }
+        }
+        
+        // Add keyboard event listeners for better interaction
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Tab') {
+                // Visual indicator that someone is using keyboard navigation
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+        
+        document.addEventListener('mousedown', function() {
+            document.body.classList.remove('keyboard-navigation');
+        });
+    </script>
+</body>
+</html>
