@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 APIs Demo Projects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+
+        .project-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .emoji {
+            font-size: 1.2em;
+        }
+
+        /* localStorage To-Do List Styles */
+        .todo-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .todo-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .add-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .add-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .todo-list {
+            margin-top: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .todo-item {
+            background: #f8f9fa;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            border-left: 4px solid #667eea;
+        }
+
+        .todo-text {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+
+        /* sessionStorage Quiz Styles */
+        .quiz-question {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #28a745;
+        }
+
+        .quiz-options {
+            margin: 15px 0;
+        }
+
+        .quiz-option {
+            display: block;
+            margin: 8px 0;
+            padding: 10px;
+            background: #e9ecef;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-option:hover {
+            background: #dee2e6;
+            border-color: #28a745;
+        }
+
+        .quiz-option.selected {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: #218838;
+        }
+
+        .nav-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+
+        /* Geolocation Weather Styles */
+        .location-btn {
+            background: #fd7e14;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 15px;
+            transition: background 0.3s;
+        }
+
+        .location-btn:hover {
+            background: #e8690b;
+        }
+
+        .weather-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 15px;
+            border-left: 4px solid #fd7e14;
+        }
+
+        .coordinates {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #dc3545;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #28a745;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 HTML5 APIs Demo Projects</h1>
+        
+        <div class="projects-grid">
+            <!-- localStorage To-Do List -->
+            <div class="project-card">
+                <div class="project-title">
+                    <span class="emoji">📝</span>
+                    localStorage - Persistent To-Do List
+                </div>
+                <p style="color: #666; margin-bottom: 15px;">Add tasks that will be remembered even after closing your browser!</p>
+                
+                <input type="text" id="todoInput" class="todo-input" placeholder="Enter a new task..." maxlength="100">
+                <button onclick="addTodo()" class="add-btn">Add Task</button>
+                
+                <div id="todoList" class="todo-list"></div>
+                
+                <div style="margin-top: 15px; font-size: 14px; color: #666;">
+                    💡 <strong>Try this:</strong> Add some tasks, then refresh this page or close your browser and come back!
+                </div>
+            </div>
+
+            <!-- sessionStorage Quiz -->
+            <div class="project-card">
+                <div class="project-title">
+                    <span class="emoji">🧠</span>
+                    sessionStorage - Quiz Progress
+                </div>
+                <p style="color: #666; margin-bottom: 15px;">A multi-step quiz that remembers your answers during this session!</p>
+                
+                <div class="progress-bar">
+                    <div id="quizProgress" class="progress-fill" style="width: 33%"></div>
+                </div>
+                <div style="text-align: center; font-size: 14px; color: #666; margin-bottom: 15px;">
+                    Question <span id="currentQ">1</span> of 3
+                </div>
+                
+                <div id="quizContainer">
+                    <div class="quiz-question">
+                        <strong id="questionText">What does HTML stand for?</strong>
+                    </div>
+                    <div class="quiz-options" id="quizOptions">
+                        <!-- Options will be inserted here -->
+                    </div>
+                </div>
+                
+                <div class="quiz-nav">
+                    <button onclick="previousQuestion()" class="nav-btn" id="prevBtn" disabled>Previous</button>
+                    <button onclick="nextQuestion()" class="nav-btn" id="nextBtn">Next</button>
+                </div>
+                
+                <div style="margin-top: 15px; font-size: 14px; color: #666;">
+                    💡 <strong>Try this:</strong> Answer questions, then refresh the page - your answers are saved for this session!
+                </div>
+            </div>
+
+            <!-- Geolocation Weather -->
+            <div class="project-card">
+                <div class="project-title">
+                    <span class="emoji">🌍</span>
+                    Geolocation - Find Your Location
+                </div>
+                <p style="color: #666; margin-bottom: 15px;">Get your current location coordinates and see some location info!</p>
+                
+                <button onclick="getLocation()" class="location-btn">📍 Get My Location</button>
+                
+                <div id="locationResult"></div>
+                
+                <div style="margin-top: 15px; font-size: 14px; color: #666;">
+                    💡 <strong>Try this:</strong> Click the button above and allow location access when prompted!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============ localStorage TO-DO LIST ============
+        let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+
+        function displayTodos() {
+            const todoList = document.getElementById('todoList');
+            todoList.innerHTML = '';
+            
+            todos.forEach((todo, index) => {
+                const todoItem = document.createElement('div');
+                todoItem.className = 'todo-item';
+                todoItem.innerHTML = `
+                    <span class="todo-text">${todo}</span>
+                    <button onclick="deleteTodo(${index})" class="delete-btn">Delete</button>
+                `;
+                todoList.appendChild(todoItem);
+            });
+        }
+
+        function addTodo() {
+            const input = document.getElementById('todoInput');
+            const todoText = input.value.trim();
+            
+            if (todoText) {
+                todos.push(todoText);
+                localStorage.setItem('todos', JSON.stringify(todos));
+                input.value = '';
+                displayTodos();
+            }
+        }
+
+        function deleteTodo(index) {
+            todos.splice(index, 1);
+            localStorage.setItem('todos', JSON.stringify(todos));
+            displayTodos();
+        }
+
+        // Handle Enter key in todo input
+        document.getElementById('todoInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addTodo();
+            }
+        });
+
+        // ============ sessionStorage QUIZ ============
+        const quizData = [
+            {
+                question: "What does HTML stand for?",
+                options: ["Hypertext Markup Language", "Home Tool Markup Language", "Hyperlinks Text Markup Language", "Hyper Tool Markup Language"],
+                correct: 0
+            },
+            {
+                question: "Which HTML5 API allows you to store data permanently?",
+                options: ["sessionStorage", "localStorage", "cookies", "geolocation"],
+                correct: 1
+            },
+            {
+                question: "What permission does geolocation API require?",
+                options: ["No permission needed", "Camera access", "User's explicit permission", "Microphone access"],
+                correct: 2
+            }
+        ];
+
+        let currentQuestion = parseInt(sessionStorage.getItem('currentQuestion') || '0');
+        let quizAnswers = JSON.parse(sessionStorage.getItem('quizAnswers') || '{}');
+
+        function displayQuestion() {
+            const question = quizData[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            document.getElementById('currentQ').textContent = currentQuestion + 1;
+            
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => selectOption(index);
+                
+                // Check if this option was previously selected
+                if (quizAnswers[currentQuestion] === index) {
+                    optionDiv.classList.add('selected');
+                }
+                
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').textContent = currentQuestion === quizData.length - 1 ? 'Finish' : 'Next';
+            
+            // Update progress bar
+            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            document.getElementById('quizProgress').style.width = progress + '%';
+        }
+
+        function selectOption(optionIndex) {
+            // Remove previous selection
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            event.target.classList.add('selected');
+            
+            // Save answer
+            quizAnswers[currentQuestion] = optionIndex;
+            sessionStorage.setItem('quizAnswers', JSON.stringify(quizAnswers));
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                currentQuestion++;
+                sessionStorage.setItem('currentQuestion', currentQuestion.toString());
+                displayQuestion();
+            } else {
+                // Quiz finished - show results
+                showQuizResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                sessionStorage.setItem('currentQuestion', currentQuestion.toString());
+                displayQuestion();
+            }
+        }
+
+        function showQuizResults() {
+            let correct = 0;
+            quizData.forEach((question, index) => {
+                if (quizAnswers[index] === question.correct) {
+                    correct++;
+                }
+            });
+            
+            const percentage = Math.round((correct / quizData.length) * 100);
+            document.getElementById('quizContainer').innerHTML = `
+                <div class="weather-info">
+                    <h3>🎉 Quiz Complete!</h3>
+                    <p>You scored ${correct} out of ${quizData.length} (${percentage}%)</p>
+                    <button onclick="restartQuiz()" class="nav-btn" style="margin-top: 15px;">Restart Quiz</button>
+                </div>
+            `;
+            document.querySelector('.quiz-nav').style.display = 'none';
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            quizAnswers = {};
+            sessionStorage.removeItem('currentQuestion');
+            sessionStorage.removeItem('quizAnswers');
+            document.querySelector('.quiz-nav').style.display = 'flex';
+            displayQuestion();
+        }
+
+        // ============ Geolocation API ============
+        function getLocation() {
+            const resultDiv = document.getElementById('locationResult');
+            
+            if (!navigator.geolocation) {
+                resultDiv.innerHTML = '<div class="error">❌ Geolocation is not supported by this browser.</div>';
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div class="loading">🔍 Getting your location...</div>';
+            
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const lat = position.coords.latitude.toFixed(6);
+                    const lng = position.coords.longitude.toFixed(6);
+                    const accuracy = Math.round(position.coords.accuracy);
+                    
+                    // Get timezone info
+                    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    const localTime = new Date().toLocaleString();
+                    
+                    resultDiv.innerHTML = `
+                        <div class="weather-info">
+                            <h3>📍 Location Found!</h3>
+                            <div class="coordinates">
+                                <strong>Coordinates:</strong><br>
+                                Latitude: ${lat}°<br>
+                                Longitude: ${lng}°<br>
+                                <br>
+                                <strong>Additional Info:</strong><br>
+                                Accuracy: ±${accuracy} meters<br>
+                                Timezone: ${timezone}<br>
+                                Local Time: ${localTime}
+                            </div>
+                            <div style="margin-top: 15px; font-size: 14px; color: #666;">
+                                🌐 You can use these coordinates with mapping services like Google Maps!
+                            </div>
+                        </div>
+                    `;
+                },
+                function(error) {
+                    let errorMessage = '';
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage = "Location access denied by user. Please allow location access and try again.";
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage = "Location information is unavailable.";
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage = "Location request timed out.";
+                            break;
+                        default:
+                            errorMessage = "An unknown error occurred while retrieving location.";
+                            break;
+                    }
+                    
+                    resultDiv.innerHTML = `<div class="error">❌ ${errorMessage}</div>`;
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 60000
+                }
+            );
+        }
+
+        // Initialize everything when page loads
+        window.onload = function() {
+            displayTodos();
+            displayQuestion();
+        };
+    </script>
+</body>
+</html>
