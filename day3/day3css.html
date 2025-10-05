@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete CSS Quick Reference Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem 1rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* NOTES GRID LAYOUT */
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .note-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+
+        .note-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .note-card h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .note-card h3 {
+            color: #764ba2;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .note-card ul, .note-card ol {
+            margin-left: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .note-card li {
+            margin-bottom: 0.4rem;
+        }
+
+        .code {
+            background: #f0f0f0;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+            font-size: 0.9rem;
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .tip-box {
+            background: #d1ecf1;
+            border-left: 4px solid #0dcaf0;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+        }
+
+        .comparison-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        pre {
+            background: #2c3e50;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+        }
+
+        .print-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+
+        .print-button:hover {
+            transform: scale(1.1);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+
+        .badge-basics { background: #ffc107; color: #000; }
+        .badge-layout { background: #28a745; color: white; }
+        .badge-advanced { background: #dc3545; color: white; }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .notes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .print-button {
+                bottom: 1rem;
+                right: 1rem;
+                padding: 0.8rem 1.2rem;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .print-button {
+                display: none;
+            }
+
+            .note-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+                margin-bottom: 1rem;
+                page-break-inside: avoid;
+            }
+
+            .header {
+                color: #333;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>📚 Complete CSS Quick Reference Guide</h1>
+            <p>Everything You Learned Today | Print-Friendly Cheat Sheet</p>
+        </div>
+
+        <!-- NOTES GRID -->
+        <div class="notes-grid">
+            
+            <!-- CSS SYNTAX -->
+            <div class="note-card">
+                <h2>📝 CSS Syntax <span class="badge badge-basics">BASICS</span></h2>
+                
+                <h3>Basic Structure</h3>
+                <pre>selector {
+  property: value;
+  property: value;
+}</pre>
+
+                <h3>Three Ways to Add CSS</h3>
+                <ol>
+                    <li><strong>Inline:</strong> <code class="code">&lt;p style="color: red;"&gt;</code></li>
+                    <li><strong>Internal:</strong> <code class="code">&lt;style&gt;</code> in <code class="code">&lt;head&gt;</code></li>
+                    <li><strong>External:</strong> <code class="code">&lt;link rel="stylesheet"&gt;</code></li>
+                </ol>
+
+                <div class="tip-box">
+                    <strong>💡 Best Practice:</strong> Use external stylesheets for maintainability!
+                </div>
+            </div>
+
+            <!-- SELECTORS -->
+            <div class="note-card">
+                <h2>🎯 CSS Selectors <span class="badge badge-basics">BASICS</span></h2>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Selector</th>
+                            <th>Example</th>
+                            <th>Targets</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Universal</td>
+                            <td><code class="code">*</code></td>
+                            <td>All elements</td>
+                        </tr>
+                        <tr>
+                            <td>Element</td>
+                            <td><code class="code">p</code></td>
+                            <td>All &lt;p&gt; tags</td>
+                        </tr>
+                        <tr>
+                            <td>Class</td>
+                            <td><code class="code">.btn</code></td>
+                            <td>class="btn"</td>
+                        </tr>
+                        <tr>
+                            <td>ID</td>
+                            <td><code class="code">#header</code></td>
+                            <td>id="header"</td>
+                        </tr>
+                        <tr>
+                            <td>Descendant</td>
+                            <td><code class="code">div p</code></td>
+                            <td>&lt;p&gt; inside &lt;div&gt;</td>
+                        </tr>
+                        <tr>
+                            <td>Child</td>
+                            <td><code class="code">div > p</code></td>
+                            <td>Direct child only</td>
+                        </tr>
+                        <tr>
+                            <td>Adjacent</td>
+                            <td><code class="code">h1 + p</code></td>
+                            <td>&lt;p&gt; right after &lt;h1&gt;</td>
+                        </tr>
+                        <tr>
+                            <td>Attribute</td>
+                            <td><code class="code">[type="text"]</code></td>
+                            <td>Has attribute</td>
+                        </tr>
+                        <tr>
+                            <td>Pseudo-class</td>
+                            <td><code class="code">:hover</code></td>
+                            <td>On hover state</td>
+                        </tr>
+                        <tr>
+                            <td>Pseudo-element</td>
+                            <td><code class="code">::before</code></td>
+                            <td>Before content</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SPECIFICITY -->
+            <div class="note-card">
+                <h2>⚡ CSS Specificity <span class="badge badge-basics">BASICS</span></h2>
+                
+                <h3>Power Levels (Highest to Lowest)</h3>
+                <ol>
+                    <li><strong>!important</strong> - 10,000 points 💥</li>
+                    <li><strong>Inline styles</strong> - 1,000 points</li>
+                    <li><strong>IDs</strong> - 100 points</li>
+                    <li><strong>Classes/Attributes/Pseudo-classes</strong> - 10 points</li>
+                    <li><strong>Elements/Pseudo-elements</strong> - 1 point</li>
+                    <li><strong>Universal (*)</strong> - 0 points</li>
+                </ol>
+
+                <h3>Examples</h3>
+                <pre>p                  /* 1 point */
+.text              /* 10 points */
+#header            /* 100 points */
+div p.text         /* 12 points */
+#header .nav li    /* 112 points */</pre>
+
+                <div class="highlight-box">
+                    <strong>⚠️ Warning:</strong> Avoid <code class="code">!important</code> - it makes debugging hard!
+                </div>
+            </div>
+
+            <!-- BOX MODEL -->
+            <div class="note-card">
+                <h2>📦 Box Model <span class="badge badge-basics">BASICS</span></h2>
+                
+                <h3>Four Layers (Outside to Inside)</h3>
+                <ol>
+                    <li><strong>Margin</strong> - Space outside border (transparent)</li>
+                    <li><strong>Border</strong> - Line around padding</li>
+                    <li><strong>Padding</strong> - Space inside border</li>
+                    <li><strong>Content</strong> - Actual content</li>
+                </ol>
+
+                <pre>div {
+  margin: 20px;        /* All sides */
+  margin: 10px 20px;   /* Top/Bottom Left/Right */
+  margin: 10px 20px 30px 40px; /* T R B L (clockwise) */
+  
+  padding: 15px;
+  border: 2px solid black;
+}</pre>
+
+                <h3>Box Sizing</h3>
+                <pre>* {
+  box-sizing: border-box; /* Include padding/border in width */
+}</pre>
+
+                <div class="tip-box">
+                    <strong>💡 Always use:</strong> <code class="code">box-sizing: border-box;</code> on all elements!
+                </div>
+            </div>
+
+            <!-- TYPOGRAPHY -->
+            <div class="note-card">
+                <h2>✍️ Typography <span class="badge badge-basics">BASICS</span></h2>
+                
+                <h3>Font Properties</h3>
+                <pre>font-family: Arial, sans-serif;
+font-size: 16px;
+font-weight: bold;      /* 100-900 or bold */
+font-style: italic;
+line-height: 1.6;       /* No unit = multiplier */
+letter-spacing: 2px;
+text-align: center;     /* left, right, center, justify */
+text-decoration: underline;
+text-transform: uppercase;</pre>
+
+                <h3>Font Stacks (Fallbacks)</h3>
+                <pre>font-family: 'Helvetica Neue', Arial, sans-serif;</pre>
+
+                <div class="tip-box">
+                    <strong>💡 Best Practice:</strong> Line-height 1.5-1.6 for body text
+                </div>
+            </div>
+
+            <!-- COLORS -->
+            <div class="note-card">
+                <h2>🎨 Colors <span class="badge badge-basics">BASICS</span></h2>
+                
+                <h3>Color Formats</h3>
+                <pre>/* Named Colors */
+color: red;
+
+/* Hexadecimal */
+color: #ff0000;
+color: #f00;         /* Shorthand */
+
+/* RGB */
+color: rgb(255, 0, 0);
+
+/* RGBA (with transparency) */
+color: rgba(255, 0, 0, 0.5);  /* 50% opacity */
+
+/* HSL (Hue, Saturation, Lightness) */
+color: hsl(0, 100%, 50%);
+
+/* HSLA (with transparency) */
+color: hsla(0, 100%, 50%, 0.5);</pre>
+
+                <div class="highlight-box">
+                    <strong>🎯 Pro Tip:</strong> Use HSL for easier color manipulation!
+                </div>
+            </div>
+
+            <!-- CSS UNITS -->
+            <div class="note-card">
+                <h2>📏 CSS Units <span class="badge badge-basics">BASICS</span></h2>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Unit</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code class="code">px</code></td>
+                            <td>Absolute</td>
+                            <td>Pixels (fixed)</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">%</code></td>
+                            <td>Relative</td>
+                            <td>Percent of parent</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">em</code></td>
+                            <td>Relative</td>
+                            <td>Relative to parent font-size</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">rem</code></td>
+                            <td>Relative</td>
+                            <td>Relative to root font-size</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">vw</code></td>
+                            <td>Viewport</td>
+                            <td>1% of viewport width</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">vh</code></td>
+                            <td>Viewport</td>
+                            <td>1% of viewport height</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">vmin</code></td>
+                            <td>Viewport</td>
+                            <td>1% of smaller dimension</td>
+                        </tr>
+                        <tr>
+                            <td><code class="code">vmax</code></td>
+                            <td>Viewport</td>
+                            <td>1% of larger dimension</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip-box">
+                    <strong>💡 Best Practices:</strong>
+                    <br>• Use <code class="code">rem</code> for font-sizes
+                    <br>• Use <code class="code">px</code> for borders
+                    <br>• Use <code class="code">%</code> or <code class="code">vw/vh</code> for layouts
+                </div>
+            </div>
+
+            <!-- DISPLAY PROPERTIES -->
+            <div class="note-card">
+                <h2>👁️ Display Properties <span class="badge badge-basics">BASICS</span></h2>
+                
+                <h3>Common Display Values</h3>
+                <ul>
+                    <li><code class="code">display: block;</code> - Full width, new line</li>
+                    <li><code class="code">display: inline;</code> - No width/height, same line</li>
+                    <li><code class="code">display: inline-block;</code> - Width/height + same line</li>
+                    <li><code class="code">display: none;</code> - Hidden (removes from layout)</li>
+                    <li><code class="code">display: flex;</code> - Flexbox container</li>
+                    <li><code class="code">display: grid;</code> - Grid container</li>
+                </ul>
+
+                <h3>Visibility</h3>
+                <pre>visibility: hidden;  /* Hidden but takes space */
+opacity: 0;          /* Invisible but clickable */</pre>
+            </div>
+
+            <!-- POSITIONING -->
+            <div class="note-card">
+                <h2>📍 Positioning <span class="badge badge-basics">BASICS</span></h2>
+                
+                <h3>Position Values</h3>
+                <pre>/* Static (default) - normal flow */
+position: static;
+
+/* Relative - relative to normal position */
+position: relative;
+top: 10px;
+left: 20px;
+
+/* Absolute - relative to nearest positioned ancestor */
+position: absolute;
+top: 0;
+right: 0;
+
+/* Fixed - relative to viewport */
+position: fixed;
+bottom: 20px;
+right: 20px;
+
+/* Sticky - switches between relative and fixed */
+position: sticky;
+top: 0;</pre>
+
+                <h3>Z-Index (Stacking Order)</h3>
+                <pre>z-index: 10;  /* Higher = on top */</pre>
+
+                <div class="highlight-box">
+                    <strong>⚠️ Note:</strong> z-index only works on positioned elements!
+                </div>
+            </div>
+
+            <!-- FLEXBOX BASICS -->
+            <div class="note-card">
+                <h2>🎯 Flexbox Basics <span class="badge badge-layout">LAYOUT</span></h2>
+                
+                <h3>Start Flexbox</h3>
+                <pre>display: flex;</pre>
+                
+                <h3>Container Properties</h3>
+                <pre>flex-direction: row | column;
+justify-content: flex-start | center | space-between;
+align-items: stretch | center | flex-start;
+flex-wrap: wrap | nowrap;
+gap: 20px;</pre>
+
+                <h3>Item Properties</h3>
+                <pre>flex: 1;  /* Grow to fill space */
+flex: 0 0 200px;  /* Fixed 200px */
+flex-grow: 1;
+flex-shrink: 0;
+flex-basis: 300px;
+align-self: flex-end;</pre>
+
+                <div class="tip-box">
+                    <strong>💡 Remember:</strong> Flexbox is <strong>one-dimensional</strong> (row OR column)
+                </div>
+            </div>
+
+            <!-- FLEXBOX PATTERNS -->
+            <div class="note-card">
+                <h2>🌟 Flexbox Patterns <span class="badge badge-layout">LAYOUT</span></h2>
+                
+                <h3>Perfect Centering</h3>
+                <pre>.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}</pre>
+
+                <h3>Navigation Bar</h3>
+                <pre>.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}</pre>
+
+                <h3>Equal Columns</h3>
+                <pre>.column {
+  flex: 1;
+}</pre>
+
+                <h3>Responsive Cards</h3>
+                <pre>.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.card {
+  flex: 1 1 300px;
+}</pre>
+            </div>
+
+            <!-- GRID BASICS -->
+            <div class="note-card">
+                <h2>🎨 CSS Grid Basics <span class="badge badge-layout">LAYOUT</span></h2>
+                
+                <h3>Start Grid</h3>
+                <pre>display: grid;</pre>
+                
+                <h3>Define Layout</h3>
+                <pre>grid-template-columns: 1fr 2fr 1fr;
+grid-template-rows: auto 1fr auto;
+gap: 20px;</pre>
+
+                <h3>Named Areas</h3>
+                <pre>grid-template-areas:
+  "header header header"
+  "sidebar main aside"
+  "footer footer footer";
+
+.header { grid-area: header; }</pre>
+
+                <h3>Item Placement</h3>
+                <pre>grid-column: 1 / 3;  /* Span columns */
+grid-row: span 2;     /* Span rows */</pre>
+
+                <div class="tip-box">
+                    <strong>💡 Remember:</strong> Grid is <strong>two-dimensional</strong> (rows AND columns)
+                </div>
+            </div>
+
+            <!-- GRID PATTERNS -->
+            <div class="note-card">
+                <h2>🌟 Grid Patterns <span class="badge badge-layout">LAYOUT</span></h2>
+                
+                <h3>Holy Grail Layout</h3>
+                <pre>.container {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}</pre>
+
+                <h3>Responsive Cards (Auto!)</h3>
+                <pre>.container {
+  display: grid;
+  grid-template-columns: 
+    repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}</pre>
+
+                <h3>Magazine Layout</h3>
+                <pre>.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 150px;
+}
+.featured {
+  grid-column: span 2;
+  grid-row: span 2;
+}</pre>
+            </div>
+
+            <!-- FLEXBOX VS GRID -->
+            <div class="note-card">
+                <h2>⚖️ Flexbox vs Grid <span class="badge badge-layout">LAYOUT</span></h2>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Flexbox</th>
+                            <th>Grid</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Dimension</strong></td>
+                            <td>1D (row OR column)</td>
+                            <td>2D (rows AND columns)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Best For</strong></td>
+                            <td>Components, navigation</td>
+                            <td>Page layouts</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Content</strong></td>
+                            <td>Content-first</td>
+                            <td>Layout-first</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Alignment</strong></td>
+                            <td>One axis at a time</td>
+                            <td>Both axes together</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight-box">
+                    <strong>🎯 Pro Tip:</strong> Use BOTH! Grid for page layout, Flexbox inside grid items.
+                </div>
+            </div>
+
+            <!-- RESPONSIVE DESIGN -->
+            <div class="note-card">
+                <h2>📱 Responsive Design <span class="badge badge-advanced">ADVANCED</span></h2>
+                
+                <h3>Media Queries</h3>
+                <pre>/* Mobile First */
+.container {
+  width: 100%;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .container {
+    width: 1000px;
+  }
+}</pre>
+
+                <h3>Common Breakpoints</h3>
+                <ul>
+                    <li><strong>Mobile:</strong> 320px - 767px</li>
+                    <li><strong>Tablet:</strong> 768px - 1023px</li>
+                    <li><strong>Desktop:</strong> 1024px+</li>
+                </ul>
+
+                <h3>Responsive Units</h3>
+                <pre>font-size: clamp(1rem, 2vw, 2rem);
+width: min(90%, 1200px);
+height: max(300px, 50vh);</pre>
+            </div>
+
+            <!-- ALIGNMENT CHEAT SHEET -->
+            <div class="note-card">
+                <h2>🎯 Alignment Cheat Sheet <span class="badge badge-layout">LAYOUT</span></h2>
+                
+                <h3>Flexbox Alignment</h3>
+                <ul>
+                    <li><strong>justify-content:</strong> Main axis (horizontal for row)</li>
+                    <li><strong>align-items:</strong> Cross axis (vertical for row)</li>
+                    <li><strong>align-self:</strong> Override for single item</li>
+                </ul>
+
+                <h3>Grid Alignment</h3>
+                <ul>
+                    <li><strong>justify-items:</strong> Items horizontally in cells</li>
+                    <li><strong>align-items:</strong> Items vertically in cells</li>
+                    <li><strong>justify-content:</strong> Entire grid horizontally</li>
+                    <li><strong>align-content:</strong> Entire grid vertically</li>
+                </ul>
+
+                <h3>Values for All</h3>
+                <code class="code">start | end | center | stretch | space-between | space-around | space-evenly</code>
+            </div>
+
+            <!-- DEBUGGING TIPS -->
+            <div class="note-card">
+                <h2>🐛 Debugging Tips <span class="badge badge-advanced">ADVANCED</span></h2>
+                
+                <h3>Browser DevTools</h3>
+                <ul>
+                    <li>Right-click → Inspect</li>
+                    <li>Look for flex/grid badges</li>
+                    <li>Click badge for visual overlay</li>
+                    <li>Hover over elements to see box model</li>
+                </ul>
+
+                <h3>Debug CSS</h3>
+                <pre>* {
+  outline: 1px solid red;
+}
+
+.container {
+  background: rgba(255,0,0,0.1);
+}</pre>
+
+                <h3>Common Issues</h3>
+                <ul>
+                    <li><strong>Centering not working?</strong> Add height to container</li>
+                    <li><strong>Items overflowing?</strong> Use <code class="code">min-width: 0</code></li>
+                    <li><strong>Z-index not working?</strong> Element must be positioned</li>
+                    <li><strong>Margin collapse?</strong> Use padding or flex/grid</li>
+                </ul>
+            </div>
+
+            <!-- USEFUL PROPERTIES -->
+            <div class="note-card">
+                <h2>⚡ Useful Properties <span class="badge badge-advanced">ADVANCED</span></h2>
+                
+                <h3>Background</h3>
+                <pre>background-color: #fff;
+background-image: url('image.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;</pre>
+
+                <h3>Border & Radius</h3>
+                <pre>border: 2px solid black;
+border-radius: 8px;
+border-radius: 50%; /* Circle */</pre>
+
+                <h3>Shadow</h3>
+                <pre>box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+text-shadow: 1px 1px 2px rgba(0,0,0,0.5);</pre>
+
+                <h3>Transform</h3>
+                <pre>transform: scale(1.1);
+transform: rotate(45deg);
+transform: translateX(20px);
+transform: translate(10px, 20px);</pre>
+
+                <h3>Transition</h3>
+                <pre>transition: all 0.3s ease;
+transition: transform 0.3s, opacity 0.5s;</pre>
+            </div>
+
+            <!-- SHORTHAND PROPERTIES -->
+            <div class="note-card">
+                <h2>✂️ Shorthand Properties <span class="badge badge-advanced">ADVANCED</span></h2>
+                
+                <h3>Margin/
