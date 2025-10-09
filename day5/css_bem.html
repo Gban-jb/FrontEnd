@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Variables & BEM Portfolio</title>
+  <style>
+    /* ============================================
+       CSS CUSTOM PROPERTIES (VARIABLES)
+       ============================================ */
+    :root {
+      /* Color Variables */
+      --color-primary: #3498db;
+      --color-primary-dark: #2980b9;
+      --color-secondary: #2ecc71;
+      --color-accent: #e74c3c;
+      --color-dark: #2c3e50;
+      --color-light: #ecf0f1;
+      --color-white: #ffffff;
+      --color-gray: #95a5a6;
+      
+      /* Typography */
+      --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      --font-size-base: 16px;
+      --font-size-sm: 0.875rem;
+      --font-size-lg: 1.25rem;
+      --font-size-xl: 2rem;
+      --font-size-xxl: 3rem;
+      --line-height-base: 1.6;
+      
+      /* Spacing */
+      --spacing-xs: 0.5rem;
+      --spacing-sm: 1rem;
+      --spacing-md: 1.5rem;
+      --spacing-lg: 2rem;
+      --spacing-xl: 3rem;
+      
+      /* Layout */
+      --container-width: 1200px;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --box-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+      
+      /* Transitions */
+      --transition-speed: 0.3s;
+    }
+    
+    /* Dark Theme Variables */
+    [data-theme="dark"] {
+      --color-primary: #5dade2;
+      --color-dark: #ecf0f1;
+      --color-light: #1a252f;
+      --color-white: #2c3e50;
+      --color-gray: #bdc3c7;
+    }
+    
+    /* ============================================
+       RESET & BASE STYLES
+       ============================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: var(--font-primary);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height-base);
+      color: var(--color-dark);
+      background-color: var(--color-white);
+      transition: background-color var(--transition-speed),
+                  color var(--transition-speed);
+    }
+    
+    /* ============================================
+       BEM: HEADER BLOCK
+       ============================================ */
+    .header {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+      color: var(--color-white);
+      padding: var(--spacing-md) 0;
+      box-shadow: var(--box-shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header__container {
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 0 var(--spacing-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .header__logo {
+      font-size: var(--font-size-xl);
+      font-weight: bold;
+      text-decoration: none;
+      color: var(--color-white);
+    }
+    
+    .header__nav {
+      display: flex;
+      gap: var(--spacing-md);
+    }
+    
+    .header__link {
+      color: var(--color-white);
+      text-decoration: none;
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: var(--border-radius);
+      transition: background-color var(--transition-speed);
+    }
+    
+    .header__link:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .header__link--active {
+      background-color: rgba(255, 255, 255, 0.3);
+      font-weight: 600;
+    }
+    
+    /* ============================================
+       BEM: HERO BLOCK
+       ============================================ */
+    .hero {
+      background: linear-gradient(135deg, var(--color-light), var(--color-white));
+      padding: var(--spacing-xl) var(--spacing-md);
+      text-align: center;
+    }
+    
+    .hero__container {
+      max-width: var(--container-width);
+      margin: 0 auto;
+    }
+    
+    .hero__title {
+      font-size: var(--font-size-xxl);
+      margin-bottom: var(--spacing-sm);
+      color: var(--color-dark);
+    }
+    
+    .hero__subtitle {
+      font-size: var(--font-size-lg);
+      color: var(--color-gray);
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .hero__cta {
+      display: inline-flex;
+      gap: var(--spacing-sm);
+    }
+    
+    /* ============================================
+       BEM: BUTTON BLOCK
+       ============================================ */
+    .button {
+      padding: var(--spacing-sm) var(--spacing-lg);
+      font-size: var(--font-size-base);
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all var(--transition-speed);
+      font-weight: 600;
+    }
+    
+    .button--primary {
+      background-color: var(--color-primary);
+      color: var(--color-white);
+    }
+    
+    .button--primary:hover {
+      background-color: var(--color-primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--box-shadow-lg);
+    }
+    
+    .button--secondary {
+      background-color: transparent;
+      color: var(--color-primary);
+      border: 2px solid var(--color-primary);
+    }
+    
+    .button--secondary:hover {
+      background-color: var(--color-primary);
+      color: var(--color-white);
+    }
+    
+    .button--accent {
+      background-color: var(--color-accent);
+      color: var(--color-white);
+    }
+    
+    /* ============================================
+       BEM: CARD BLOCK
+       ============================================ */
+    .cards {
+      max-width: var(--container-width);
+      margin: var(--spacing-xl) auto;
+      padding: 0 var(--spacing-md);
+    }
+    
+    .cards__title {
+      text-align: center;
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--spacing-lg);
+      color: var(--color-dark);
+    }
+    
+    .cards__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-lg);
+    }
+    
+    .card {
+      background-color: var(--color-white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+      transition: all var(--transition-speed);
+    }
+    
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--box-shadow-lg);
+    }
+    
+    .card__image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-size-xxl);
+      color: var(--color-white);
+    }
+    
+    .card__content {
+      padding: var(--spacing-md);
+    }
+    
+    .card__title {
+      font-size: var(--font-size-lg);
+      margin-bottom: var(--spacing-sm);
+      color: var(--color-dark);
+    }
+    
+    .card__description {
+      color: var(--color-gray);
+      margin-bottom: var(--spacing-md);
+      font-size: var(--font-size-sm);
+    }
+    
+    .card__footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .card__tags {
+      display: flex;
+      gap: var(--spacing-xs);
+      flex-wrap: wrap;
+    }
+    
+    .card--featured {
+      border: 3px solid var(--color-secondary);
+      grid-column: span 2;
+    }
+    
+    .card--featured .card__image {
+      height: 250px;
+    }
+    
+    /* ============================================
+       BEM: TAG BLOCK
+       ============================================ */
+    .tag {
+      display: inline-block;
+      padding: var(--spacing-xs) var(--spacing-sm);
+      background-color: var(--color-light);
+      color: var(--color-dark);
+      border-radius: calc(var(--border-radius) / 2);
+      font-size: var(--font-size-sm);
+    }
+    
+    .tag--primary {
+      background-color: var(--color-primary);
+      color: var(--color-white);
+    }
+    
+    .tag--secondary {
+      background-color: var(--color-secondary);
+      color: var(--color-white);
+    }
+    
+    /* ============================================
+       BEM: THEME TOGGLE
+       ============================================ */
+    .theme-toggle {
+      position: fixed;
+      bottom: var(--spacing-lg);
+      right: var(--spacing-lg);
+      background-color: var(--color-primary);
+      color: var(--color-white);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      box-shadow: var(--box-shadow-lg);
+      font-size: var(--font-size-lg);
+      transition: all var(--transition-speed);
+      z-index: 1000;
+    }
+    
+    .theme-toggle:hover {
+      transform: scale(1.1) rotate(15deg);
+      background-color: var(--color-primary-dark);
+    }
+    
+    /* ============================================
+       BEM: FOOTER BLOCK
+       ============================================ */
+    .footer {
+      background-color: var(--color-dark);
+      color: var(--color-white);
+      padding: var(--spacing-xl) var(--spacing-md);
+      margin-top: var(--spacing-xl);
+    }
+    
+    .footer__container {
+      max-width: var(--container-width);
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .footer__title {
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .footer__links {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .footer__link {
+      color: var(--color-white);
+      text-decoration: none;
+      transition: color var(--transition-speed);
+    }
+    
+    .footer__link:hover {
+      color: var(--color-primary);
+    }
+    
+    .footer__copy {
+      color: var(--color-gray);
+      font-size: var(--font-size-sm);
+    }
+    
+    /* ============================================
+       GIT WORKFLOW DEMO SECTION
+       ============================================ */
+    .git-demo {
+      max-width: var(--container-width);
+      margin: var(--spacing-xl) auto;
+      padding: var(--spacing-md);
+    }
+    
+    .git-demo__title {
+      text-align: center;
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--spacing-lg);
+      color: var(--color-dark);
+    }
+    
+    .git-demo__workflow {
+      background-color: var(--color-light);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+    }
+    
+    .git-demo__step {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--spacing-md);
+      padding: var(--spacing-sm);
+      background-color: var(--color-white);
+      border-radius: var(--border-radius);
+      border-left: 4px solid var(--color-primary);
+    }
+    
+    .git-demo__step-number {
+      width: 40px;
+      height: 40px;
+      background-color: var(--color-primary);
+      color: var(--color-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: var(--spacing-md);
+      flex-shrink: 0;
+    }
+    
+    .git-demo__step-content {
+      flex: 1;
+    }
+    
+    .git-demo__step-title {
+      font-weight: 600;
+      margin-bottom: var(--spacing-xs);
+      color: var(--color-dark);
+    }
+    
+    .git-demo__step-command {
+      background-color: var(--color-dark);
+      color: var(--color-secondary);
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: calc(var(--border-radius) / 2);
+      font-family: 'Courier New', monospace;
+      font-size: var(--font-size-sm);
+      display: inline-block;
+      margin-top: var(--spacing-xs);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header__nav {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+      }
+      
+      .hero__title {
+        font-size: var(--font-size-xl);
+      }
+      
+      .hero__cta {
+        flex-direction: column;
+      }
+      
+      .card--featured {
+        grid-column: span 1;
+      }
+      
+      .git-demo__step {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .git-demo__step-number {
+        margin-bottom: var(--spacing-sm);
+        margin-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER BLOCK -->
+  <header class="header">
+    <div class="header__container">
+      <a href="#" class="header__logo">MyPortfolio</a>
+      <nav class="header__nav">
+        <a href="#" class="header__link header__link--active">Home</a>
+        <a href="#projects" class="header__link">Projects</a>
+        <a href="#git" class="header__link">Git Workflow</a>
+        <a href="#contact" class="header__link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO BLOCK -->
+  <section class="hero">
+    <div class="hero__container">
+      <h1 class="hero__title">CSS Variables & BEM Demo</h1>
+      <p class="hero__subtitle">A complete portfolio showcasing modern CSS practices and Git workflow</p>
+      <div class="hero__cta">
+        <a href="#projects" class="button button--primary">View Projects</a>
+        <a href="#git" class="button button--secondary">Learn Git</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDS BLOCK -->
+  <section class="cards" id="projects">
+    <h2 class="cards__title">Featured Projects</h2>
+    <div class="cards__grid">
+      
+      <!-- Featured Card -->
+      <article class="card card--featured">
+        <div class="card__image">⭐</div>
+        <div class="card__content">
+          <h3 class="card__title">Portfolio Website (Featured)</h3>
+          <p class="card__description">
+            A responsive portfolio built with CSS Variables and BEM methodology. 
+            Demonstrates advanced CSS organization and Git branching strategies.
+          </p>
+          <div class="card__footer">
+            <div class="card__tags">
+              <span class="tag tag--primary">CSS</span>
+              <span class="tag tag--secondary">BEM</span>
+              <span class="tag">Responsive</span>
+            </div>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Regular Cards -->
+      <article class="card">
+        <div class="card__image">🎨</div>
+        <div class="card__content">
+          <h3 class="card__title">Design System</h3>
+          <p class="card__description">
+            Comprehensive design system using CSS custom properties for theming and consistent styling.
+          </p>
+          <div class="card__footer">
+            <div class="card__tags">
+              <span class="tag">Variables</span>
+              <span class="tag">Theming</span>
+            </div>
+            <button class="button button--accent">View</button>
+          </div>
+        </div>
+      </article>
+      
+      <article class="card">
+        <div class="card__image">📱</div>
+        <div class="card__content">
+          <h3 class="card__title">Mobile App UI</h3>
+          <p class="card__description">
+            Clean and modern mobile interface following BEM naming conventions for scalability.
+          </p>
+          <div class="card__footer">
+            <div class="card__tags">
+              <span class="tag tag--primary">Mobile</span>
+              <span class="tag">UI/UX</span>
+            </div>
+            <button class="button button--accent">View</button>
+          </div>
+        </div>
+      </article>
+      
+      <article class="card">
+        <div class="card__image">🚀</div>
+        <div class="card__content">
+          <h3 class="card__title">Landing Page</h3>
+          <p class="card__description">
+            High-converting landing page with optimized CSS and performance-focused architecture.
+          </p>
+          <div class="card__footer">
+            <div class="card__tags">
+              <span class="tag tag--secondary">Performance</span>
+              <span class="tag">Sass</span>
+            </div>
+            <button class="button button--accent">View</button>
+          </div>
+        </div>
+      </article>
+      
+      <article class="card">
+        <div class="card__image">💻</div>
+        <div class="card__content">
+          <h3 class="card__title">Component Library</h3>
+          <p class="card__description">
+            Reusable component library built with modular CSS and documented with Storybook.
+          </p>
+          <div class="card__footer">
+            <div class="card__tags">
+              <span class="tag">Components</span>
+              <span class="tag">Library</span>
+            </div>
+            <button class="button button--accent">View</button>
+          </div>
+        </div>
+      </article>
+      
+    </div>
+  </section>
+
+  <!-- GIT WORKFLOW DEMO -->
+  <section class="git-demo" id="git">
+    <h2 class="git-demo__title">Git Workflow Example</h2>
+    <div class="git-demo__workflow">
+      
+      <div class="git-demo__step">
+        <div class="git-demo__step-number">1</div>
+        <div class="git-demo__step-content">
+          <div class="git-demo__step-title">Create Feature Branch</div>
+          <p>Start with a new branch for your feature</p>
+          <code class="git-demo__step-command">git checkout -b feature/css-variables</code>
+        </div>
+      </div>
+      
+      <div class="git-demo__step">
+        <div class="git-demo__step-number">2</div>
+        <div class="git-demo__step-content">
+          <div class="git-demo__step-title">Make Changes</div>
+          <p>Implement CSS variables and BEM methodology</p>
+          <code class="git-demo__step-command">git add styles.css</code>
+        </div>
+      </div>
+      
+      <div class="git-demo__step">
+        <div class="git-demo__step-number">3</div>
+        <div class="git-demo__step-content">
+          <div class="git-demo__step-title">Commit Changes</div>
+          <p>Write a descriptive commit message</p>
+          <code class="git-demo__step-command">git commit -m "Add CSS variables and BEM structure"</code>
+        </div>
+      </div>
+      
+      <div class="git-demo__step">
+        <div class="git-demo__step-number">4</div>
+        <div class="git-demo__step-content">
+          <div class="git-demo__step-title">Push to Remote</div>
+          <p>Upload your feature branch to GitHub</p>
+          <code class="git-demo__step-command">git push origin feature/css-variables</code>
+        </div>
+      </div>
+      
+      <div class="git-demo__step">
+        <div class="git-demo__step-number">5</div>
+        <div class="git-demo__step-content">
+          <div class="git-demo__step-title">Create Pull Request</div>
+          <p>Open a PR on GitHub for team review</p>
+          <code class="git-demo__step-command">Create PR: feature/css-variables → main</code>
+        </div>
+      </div>
+      
+      <div class="git-demo__step">
+        <div class="git-demo__step-number">6</div>
+        <div class="git-demo__step-content">
+          <div class="git-demo__step-title">Review & Merge</div>
+          <p>After approval, merge into main branch</p>
+          <code class="git-demo__step-command">git checkout main && git merge feature/css-variables</code>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- FOOTER BLOCK -->
+  <footer class="footer" id="contact">
+    <div class="footer__container">
+      <h2 class="footer__title">Let's Connect</h2>
+      <nav class="footer__links">
+        <a href="#" class="footer__link">GitHub</a>
+        <a href="#" class="footer__link">LinkedIn</a>
+        <a href="#" class="footer__link">Twitter</a>
+        <a href="#" class="footer__link">Email</a>
+      </nav>
+      <p class="footer__copy">© 2025 MyPortfolio. Built with CSS Variables & BEM</p>
+    </div>
+  </footer>
+
+  <!-- THEME TOGGLE BUTTON -->
+  <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">🌓</button>
+
+  <script>
+    // Theme Toggle Functionality
+    function toggleTheme() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      
+      if (currentTheme === 'dark') {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.body.setAttribute('data-theme', 'dark');
+    }
+    
+    // Smooth scrolling for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
