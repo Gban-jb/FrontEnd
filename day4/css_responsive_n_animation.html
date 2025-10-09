@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- VIEWPORT META TAG - Makes responsive design work on mobile! -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Responsive Design & Animations Guide</title>
+  <style>
+    /* ========================================
+       RESET & BASE STYLES
+       ======================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      font-size: 16px; /* Base for rem units */
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f5f5f5;
+    }
+    
+    /* ========================================
+       KEYFRAME ANIMATIONS
+       ======================================== */
+    
+    /* 1. FADE IN - Element appears gradually */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    /* 2. FADE IN UP - Element slides up while fading in */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* 3. SLIDE IN LEFT - Element slides from left */
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    /* 4. SLIDE IN RIGHT - Element slides from right */
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(100px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    /* 5. BOUNCE - Element bounces up and down */
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-25px);
+      }
+    }
+    
+    /* 6. PULSE - Element grows and shrinks */
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+    
+    /* 7. SPIN - Rotating animation */
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    
+    /* 8. SHAKE - Shaking side to side */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+    
+    /* 9. RAINBOW - Cycling through colors */
+    @keyframes rainbow {
+      0% { background-color: #ff6b6b; }
+      20% { background-color: #feca57; }
+      40% { background-color: #48dbfb; }
+      60% { background-color: #1dd1a1; }
+      80% { background-color: #a29bfe; }
+      100% { background-color: #ff6b6b; }
+    }
+    
+    /* 10. FLIP - 3D flip effect */
+    @keyframes flip {
+      from {
+        transform: perspective(400px) rotateY(0);
+      }
+      to {
+        transform: perspective(400px) rotateY(360deg);
+      }
+    }
+    
+    /* ========================================
+       HEADER & NAVIGATION
+       Mobile-first approach
+       ======================================== */
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+      animation: slideInLeft 0.8s ease-out;
+    }
+    
+    nav {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background-color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      animation: pulse 2s infinite;
+    }
+    
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      list-style: none;
+      width: 100%;
+    }
+    
+    .nav-links li a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 0.75rem 1rem;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    
+    .nav-links li a:hover {
+      background-color: rgba(255,255,255,0.2);
+      transform: translateX(5px);
+    }
+    
+    /* ========================================
+       HERO SECTION
+       Full viewport height on all devices
+       ======================================== */
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    
+    .hero h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      animation: fadeInUp 1s ease-out;
+    }
+    
+    .hero p {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      animation: fadeInUp 1s ease-out 0.2s backwards;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeInUp 1s ease-out 0.4s backwards;
+    }
+    
+    /* BUTTON EXAMPLES WITH DIFFERENT EFFECTS */
+    .btn {
+      padding: 0.875rem 1.75rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    /* Button 1: Scale on hover */
+    .btn-primary {
+      background-color: white;
+      color: #667eea;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      transform: scale(1.1) translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    
+    /* Button 2: Slide animation */
+    .btn-secondary {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    
+    .btn-secondary:hover {
+      background-color: white;
+      color: #667eea;
+      transform: translateX(5px);
+    }
+    
+    /* ========================================
+       RESPONSIVE UNITS DEMONSTRATION
+       ======================================== */
+    .units-demo {
+      background-color: white;
+      padding: 2rem 1rem;
+      max-width: 1400px;
+      margin: 2rem auto;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      animation: fadeIn 1s ease-out;
+    }
+    
+    .units-demo h2 {
+      color: #667eea;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    
+    .units-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .unit-box {
+      padding: 1.5rem;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .unit-box:hover {
+      transform: rotate(2deg) scale(1.05);
+    }
+    
+    .unit-box-px { width: 200px; } /* Fixed pixels */
+    .unit-box-percent { width: 100%; } /* Percentage */
+    .unit-box-rem { padding: 2rem; } /* Root em */
+    .unit-box-vw { width: 80vw; } /* Viewport width */
+    
+    /* ========================================
+       TRANSFORM DEMONSTRATIONS
+       ======================================== */
+    .transforms-section {
+      background-color: #f8f9fa;
+      padding: 3rem 1rem;
+    }
+    
+    .transforms-section h2 {
+      color: #667eea;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .transforms-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .transform-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    
+    .transform-card h3 {
+      color: #667eea;
+      margin-bottom: 1rem;
+    }
+    
+    .transform-demo {
+      width: 100px;
+      height: 100px;
+      margin: 2rem auto;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    /* TRANSLATE - Move elements */
+    .transform-translate:hover {
+      transform: translate(20px, -20px);
+      transition: transform 0.5s ease;
+    }
+    
+    /* ROTATE - Spin elements */
+    .transform-rotate:hover {
+      transform: rotate(45deg);
+      transition: transform 0.5s ease;
+    }
+    
+    /* SCALE - Grow/shrink elements */
+    .transform-scale:hover {
+      transform: scale(1.5);
+      transition: transform 0.5s ease;
+    }
+    
+    /* SKEW - Slant elements */
+    .transform-skew:hover {
+      transform: skewX(20deg);
+      transition: transform 0.5s ease;
+    }
+    
+    /* COMBINED - Multiple transforms */
+    .transform-combined:hover {
+      transform: translate(10px, -10px) rotate(15deg) scale(1.2);
+      transition: transform 0.5s ease;
+    }
+    
+    /* ========================================
+       ANIMATION EXAMPLES GALLERY
+       ======================================== */
+    .animations-gallery {
+      background-color: white;
+      padding: 3rem 1rem;
+      max-width: 1400px;
+      margin: 2rem auto;
+      border-radius: 10px;
+    }
+    
+    .animations-gallery h2 {
+      color: #667eea;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .animation-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .animation-item {
+      padding: 2rem;
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      border-radius: 10px;
+      text-align: center;
+    }
+    
+    .animation-item h3 {
+      color: #333;
+      margin-bottom: 1rem;
+    }
+    
+    .animation-box {
+      width: 80px;
+      height: 80px;
+      margin: 1rem auto;
+      background-color: #667eea;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+    
+    .anim-bounce { animation: bounce 2s infinite; }
+    .anim-pulse { animation: pulse 2s infinite; }
+    .anim-spin { animation: spin 2s linear infinite; }
+    .anim-shake { animation: shake 1s infinite; }
+    .anim-rainbow { animation: rainbow 5s infinite; }
+    .anim-flip { animation: flip 3s infinite; }
+    
+    /* ========================================
+       LOADING SPINNERS
+       ======================================== */
+    .spinners-section {
+      background-color: #f8f9fa;
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+    
+    .spinners-section h2 {
+      color: #667eea;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .spinner-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .spinner-item {
+      text-align: center;
+    }
+    
+    /* Spinner 1: Basic circle */
+    .spinner-basic {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    /* Spinner 2: Growing dots */
+    .spinner-dots {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .dot {
+      width: 15px;
+      height: 15px;
+      background-color: #667eea;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+    
+    /* Spinner 3: Rotating square */
+    .spinner-square {
+      width: 50px;
+      height: 50px;
+      background-color: #667eea;
+      animation: spin 2s infinite ease-in-out;
+    }
+    
+    /* ========================================
+       RESPONSIVE IMAGES DEMONSTRATION
+       ======================================== */
+    .images-section {
+      background-color: white;
+      padding: 3rem 1rem;
+      max-width: 1400px;
+      margin: 2rem auto;
+      border-radius: 10px;
+    }
+    
+    .images-section h2 {
+      color: #667eea;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .responsive-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .responsive-img:hover {
+      transform: scale(1.05);
+    }
+    
+    .img-placeholder {
+      width: 100%;
+      height: 300px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* ========================================
+       CARDS WITH HOVER EFFECTS
+       ======================================== */
+    .cards-section {
+      background-color: #f8f9fa;
+      padding: 3rem 1rem;
+    }
+    
+    .cards-section h2 {
+      color: #667eea;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 0.8s ease-out;
+    }
+    
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+    
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1rem;
+    }
+    
+    .card h3 {
+      color: #667eea;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    
+    .card p {
+      color: #666;
+      line-height: 1.8;
+      text-align: center;
+    }
+    
+    /* ========================================
+       MEDIA QUERIES DEMONSTRATION
+       ======================================== */
+    .breakpoints-demo {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      padding: 3rem 1rem;
+      text-align: center;
+      margin: 2rem 0;
+    }
+    
+    .breakpoints-demo h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .current-breakpoint {
+      font-size: 3rem;
+      font-weight: bold;
+      margin: 2rem 0;
+    }
+    
+    .current-breakpoint::before {
+      content: "📱 Mobile (< 768px)";
+    }
+    
+    /* ========================================
+       FOOTER
+       ======================================== */
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+    
+    footer h3 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    
+    footer p {
+      margin-bottom: 0.5rem;
+      opacity: 0.8;
+    }
+    
+    /* ========================================
+       TABLET BREAKPOINT (768px and up)
+       ======================================== */
+    @media (min-width: 768px) {
+      /* Navigation becomes horizontal */
+      .nav-links {
+        flex-direction: row;
+        width: auto;
+      }
+      
+      .nav-links li a:hover {
+        transform: translateY(-3px);
+      }
+      
+      /* Hero section gets bigger */
+      .hero {
+        min-height: 70vh;
+      }
+      
+      .hero h1 {
+        font-size: 3rem;
+      }
+      
+      .hero p {
+        font-size: 1.25rem;
+      }
+      
+      /* Grids become 2 columns */
+      .units-grid,
+      .transforms-grid,
+      .animation-grid,
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      /* Current breakpoint indicator */
+      .current-breakpoint::before {
+        content: "📱 Tablet (768px - 1023px)";
+      }
+    }
+    
+    /* ========================================
+       DESKTOP BREAKPOINT (1024px and up)
+       ======================================== */
+    @media (min-width: 1024px) {
+      /* Hero gets even bigger */
+      .hero {
+        min-height: 80vh;
+        padding: 5rem 2rem;
+      }
+      
+      .hero h1 {
+        font-size: 4rem;
+      }
+      
+      .hero p {
+        font-size: 1.5rem;
+      }
+      
+      /* Grids become 3 columns */
+      .transforms-grid,
+      .animation-grid,
+      .cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      /* Units grid stays 2 columns but larger */
+      .units-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+      
+      /* Better spacing */
+      .units-demo,
+      .animations-gallery,
+      .images-section {
+        padding: 4rem 2rem;
+      }
+      
+      /* Current breakpoint indicator */
+      .current-breakpoint::before {
+        content: "🖥️ Desktop (1024px+)";
+      }
+    }
+    
+    /* ========================================
+       LARGE DESKTOP BREAKPOINT (1440px and up)
+       ======================================== */
+    @media (min-width: 1440px) {
+      .hero h1 {
+        font-size: 5rem;
+      }
+      
+      /* Max width for very large screens */
+      .units-demo,
+      .animations-gallery,
+      .images-section,
+      .transforms-grid,
+      .cards-grid {
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      /* Current breakpoint indicator */
+      .current-breakpoint::before {
+        content: "🖥️ Large Desktop (1440px+)";
+      }
+    }
+    
+    /* ========================================
+       ORIENTATION MEDIA QUERIES
+       ======================================== */
+    @media (orientation: landscape) and (max-height: 600px) {
+      .hero {
+        min-height: 100vh;
+      }
+    }
+    
+    /* ========================================
+       PRINT STYLES (Bonus!)
+       ======================================== */
+    @media print {
+      header,
+      footer,
+      .hero-buttons,
+      .animations-gallery {
+        display: none;
+      }
+      
+      body {
+        background-color: white;
+        color: black;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================
+       HEADER & NAVIGATION
+       ======================================== -->
+  <header>
+    <nav>
+      <div class="logo">
+        <div class="logo-icon">✨</div>
+        <span>Complete Guide</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#units">Units</a></li>
+        <li><a href="#transforms">Transforms</a></li>
+        <li><a href="#animations">Animations</a></li>
+        <li><a href="#spinners">Spinners</a></li>
+        <li><a href="#cards">Cards</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ========================================
+       HERO SECTION
+       ======================================== -->
+  <section class="hero" id="hero">
+    <h1>Responsive Design & CSS Animations</h1>
+    <p>A complete guide covering every detail from mobile-first design to complex animations. Resize your browser to see the magic! ✨</p>
+    <div class="hero-buttons">
+      <button class="btn btn-primary">Scale Effect</button>
+      <button class="btn btn-secondary">Slide Effect</button>
+    </div>
+  </section>
+
+  <!-- ========================================
+       BREAKPOINTS DEMONSTRATION
+       ======================================== -->
+  <section class="breakpoints-demo">
+    <h2>Current Screen Size</h2>
+    <div class="current-breakpoint"></div>
+    <p>Resize your browser window to see this change!</p>
+  </section>
+
+  <!-- ========================================
+       RESPONSIVE UNITS DEMONSTRATION
+       ======================================== -->
+  <section class="units-demo" id="units">
+    <h2>📏 Responsive Units</h2>
+    <div class="units-grid">
+      <div class="unit-box unit-box-px">
+        <h3>Pixels (px)</h3>
+        <p>Fixed: 200px width</p>
+      </div>
+      <div class="unit-box unit-box-percent">
+        <h3>Percentage (%)</h3>
+        <p>Fluid: 100% width</p>
+      </div>
+      <div class="unit-box unit-box-rem">
+        <h3>Root Em (rem)</h3>
+        <p>Scalable: 2rem padding</p>
+      </div>
+      <div class="unit-box unit-box-vw">
+        <h3>Viewport Width (vw)</h3>
+        <p>Responsive: 80vw width</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================
+       TRANSFORM DEMONSTRATIONS
+       ======================================== -->
+  <section class="transforms-section" id="transforms">
+    <h2>🔄 Transform Properties</h2>
+    <p style="text-align: center; color: #666; margin-bottom: 2rem;">Hover over each box to see the effect!</p>
+    <div class="transforms-grid">
+      
+      <div class="transform-card">
+        <h3>Translate</h3>
+        <p>Moves elements without affecting layout</p>
+        <div class="transform-demo transform-translate">Move</div>
+        <code>transform: translate(20px, -20px);</code>
+      </div>
+      
+      <div class="transform-card">
+        <h3>Rotate</h3>
+        <p>Spins elements around a point</p>
+        <div class="transform-demo transform-rotate">Spin</div>
+        <code>transform: rotate(45deg);</code>
+      </div>
+      
+      <div class="transform-card">
+        <h3>Scale</h3>
+        <p>Makes elements bigger or smaller</p>
+        <div class="transform-demo transform-scale">Grow</div>
+        <code>transform: scale(1.5);</code>
+      </div>
+      
+      <div class="transform-card">
+        <h3>Skew</h3>
+        <p>Slants elements at an angle</p>
+        <div class="transform-demo transform-skew">Slant</div>
+        <code>transform: skewX(20deg);</code>
+      </div>
+      
+      <div class="transform-card">
+        <h3>Combined</h3>
+        <p>Multiple transforms at once</p>
+        <div class="transform-demo transform-combined">All</div>
+        <code>transform: translate() rotate() scale();</code>
+      </div>
+      
+      <div class="transform-card">
+        <h3>With Transition</h3>
+        <p>Smooth animated changes</p>
+        <div class="transform-demo transform-scale">Smooth</div>
+        <code>transition: transform 0.5s ease;</code>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ========================================
+       ANIMATION EXAMPLES GALLERY
+       ======================================== -->
+  <section class="animations-gallery" id="animations">
+    <h2>🎨 Keyframe Animations</h2>
+    <p style="text-align: center; color: #666; margin-bottom: 2rem;">These animations run automatically and infinitely!</p>
+    <div class="animation-grid">
+      
+      <div class="animation-item">
+        <h3>Bounce</h3>
+        <div class="animation-box anim-bounce">↕️</div>
+        <p>Up and down movement</p>
+      </div>
+      
+      <div class="animation-item">
+        <h3>Pulse</h3>
+        <div class="animation-box anim-pulse">💓</div>
+        <p>Grows and shrinks</p>
+      </div>
+      
+      <div class="animation-item">
+        <h3>Spin</h3>
+        <div class="animation-box anim-spin">🔄</div>
+        <p>Continuous rotation</p>
+      </div>
+      
+      <div class="animation-item">
+        <h3>Shake</h3>
+        <div class="animation-box anim-shake">📳</div>
+        <p>Side to side vibration</p>
+      </div>
+      
+      <div class="animation-item">
+        <h3>Rainbow</h3>
+        <div class="animation-box anim-rainbow">🌈</div>
+        <p>Color cycling effect</p>
+      </div>
+      
+      <div class="animation-item">
+        <h3>Flip</h3>
+        <div class="animation-box anim-flip">🔃</div>
+        <p>3D flip rotation</p>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- ========================================
+       LOADING SPINNERS
+       ======================================== -->
+  <section class="spinners-section" id="spinners">
+    <h2>⏳ Loading Spinners</h2>
